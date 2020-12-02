@@ -50,6 +50,6 @@ jobs:
     - name: Train Model
       shell: bash
       run: |
-        mlflow run https://github.com/shivp950/AzureML_MLflow_demo#AzureML_MLflow_demo/code/Bert_pytorch -P epochs=5 --backend azureml --backend_config backend_config.json --experiment-name "mlflow-Bert-example"
+        mlflow run https://github.com/shivp950/AzureML_MLflow_demo#AzureML_MLflow_demo/code/Bert_pytorch -P epochs=5 --backend azureml --backend-config backend_config.json --experiment-name "mlflow-Bert-example"
         
     
