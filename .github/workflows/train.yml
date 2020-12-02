@@ -51,6 +51,10 @@ jobs:
       run: |
         python 'code/Bert_pytorch/run_training.py'
     
+    - name: Register model 
+      run: |
+        python 'code/Bert_pytorch/register_model.py'
+    
     - name: Train Model
       shell: bash
       run: |
