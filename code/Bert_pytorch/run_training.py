@@ -50,7 +50,7 @@ print(ws.name, ws.resource_group, ws.location, sep = '\n')
 # Set mlflow tracking 
 # mlflow.set_tracking_uri(ws.get_mlflow_tracking_uri())
 
-os.environ["MLFLOW_TRACKING_URI"] = ws.from_config().get_mlflow_tracking_uri()
+os.environ["MLFLOW_TRACKING_URI"] = ws.get_mlflow_tracking_uri()
 
 # Attach Experiment
 print("Loading Experiment")
