@@ -1,4 +1,4 @@
-name: rebuild and run ml pipeline
+name: run training
 
 on:
   push:
@@ -34,15 +34,15 @@ jobs:
 
     - name: 'Get or Create Workspace'
       run: |
-        python 'Bert_pytorch/set_workspace.py' --subscription-id ${{ secrets.SUBSCRIPTION_ID }} --workspace-name ${{ secrets.WORKSPACE_NAME }} --resource-group ${{ secrets.RESOURCE_GROUP }} --location ${{ secrets.LOCATION }} --friendly-name ${{ secrets.FRIENDLY_NAME }}
+        python 'code/Bert_pytorch/set_workspace.py' --subscription-id ${{ secrets.SUBSCRIPTION_ID }} --workspace-name ${{ secrets.WORKSPACE_NAME }} --resource-group ${{ secrets.RESOURCE_GROUP }} --location ${{ secrets.LOCATION }} --friendly-name ${{ secrets.FRIENDLY_NAME }}
     
     - name: Create or Load Azure Machine Learning Compute
       run: |
-        python 'Bert_pytorch/set_computecluster.py'
+        python 'code/Bert_pytorch/set_computecluster.py'
     
     - name: Train Model
       shell: bash
       run: |
-        mlflow run "https://github.com/shivp950/AzureML_MLflow_demo/Bert_pytorch" -P epochs=5 -b "azureml" -c "backend_config.json" --experiment-name "mlflow-Bert-example"
+        mlflow run "https://github.com/shivp950/AzureML_MLflow_demo/code/Bert_pytorch" -P epochs=5 -b "azureml" -c "backend_config.json" --experiment-name "mlflow-Bert-example"
         
     
