@@ -4,8 +4,6 @@ on:
   repository_dispatch:
     types:
     - model-registered
-    - logic-app-model-registered
-    - GHA_LogicApp
 
 jobs:
   deploy-model:
