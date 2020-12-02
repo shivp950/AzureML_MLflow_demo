@@ -24,15 +24,10 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     
-    - name: Setup Python 3.6
+    - name: Setup Python 3.7
       uses: actions/setup-python@v1
       with:
-        python-version: 3.6
-
-    - name: 'Install MLflow and AzureML'
-      shell: bash
-      run: |
-        pip install azureml-mlflow
+        python-version: 3.7
 
     - name: Install Dependencies
       run: |
