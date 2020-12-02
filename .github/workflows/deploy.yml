@@ -1,9 +1,9 @@
 name: deploy model
-# incomplete
-on:
-  repository_dispatch:
-    types:
-    - model-registered
+on: [push, pull_request]
+# on:
+#   repository_dispatch:
+#     types:
+#     - model-registered
 
 jobs:
   deploy-model:
