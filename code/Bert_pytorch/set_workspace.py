@@ -53,14 +53,14 @@ print(f"::add-mask::{args.subscription_id}")
 cli_auth = AzureCliAuthentication()
 
 try:
-print("Loading existing Workspace")
+    print("Loading existing Workspace")
     ws = Workspace.get(
         name=args.workspace_name,
         subscription_id=args.subscription_id,
         resource_group=args.resource_group,
         auth=cli_auth
     )
-print("Found existing Workspace")
+    print("Found existing Workspace")
 
 except WorkspaceException:
     print("Loading failed")
