@@ -32,6 +32,11 @@ jobs:
       run: |
         pip install azureml-mlflow
 
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r 'code/Bert_pytorch/requirements.txt'
+
     - name: 'Get or Create Workspace'
       run: |
         python 'code/Bert_pytorch/set_workspace.py' --subscription-id ${{ secrets.SUBSCRIPTION_ID }} --workspace-name ${{ secrets.WORKSPACE_NAME }} --resource-group ${{ secrets.RESOURCE_GROUP }} --location ${{ secrets.LOCATION }} 
