@@ -1,0 +1,48 @@
+name: rebuild and run ml pipeline
+
+on:
+  push:
+    branches:
+      master
+    paths:
+    - '**.py'
+    - 'requirements.txt'
+    - '!get_logs.py'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # checkout the repo
+    - uses: actions/checkout@master
+
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    
+    - name: Setup Python 3.6
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.6
+
+    - name: 'Install MLflow and AzureML'
+      shell: bash
+      run: |
+        pip install azureml-mlflow
+
+    - name: 'Get or Create Workspace'
+      run: |
+        python 'Bert_pytorch/set_workspace.py' --subscription-id ${{ secrets.SUBSCRIPTION_ID }} --workspace-name ${{ secrets.WORKSPACE_NAME }} --resource-group ${{ secrets.RESOURCE_GROUP }} --location ${{ secrets.LOCATION }} --friendly-name ${{ secrets.FRIENDLY_NAME }}
+    
+    - name: Create or Load Azure Machine Learning Compute
+      run: |
+        python 'Bert_pytorch/set_computecluster.py'
+    
+    - name: Train Model
+      shell: bash
+      run: |
+        mlflow run "https://github.com/shivp950/AzureML_MLflow_demo/Bert_pytorch" -P epochs=5 -b "azureml" -c "backend_config.json" --experiment-name "mlflow-Bert-example"
+        
+    

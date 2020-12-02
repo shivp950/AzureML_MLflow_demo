@@ -1,0 +1,4 @@
+{
+    "COMPUTE": "aml-cluster",
+    "USE_CONDA": "True"
+}

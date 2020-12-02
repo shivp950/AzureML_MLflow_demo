@@ -1,0 +1,17 @@
+import sys, os
+import mlflow
+import mlflow.azureml
+
+import azureml.core
+from azureml.core import Workspace
+
+
+print("SDK version:", azureml.core.VERSION)
+print("MLflow version:", mlflow.version.VERSION)
+
+ws = Workspace.from_config()
+
+mlflow.set_tracking_uri(ws.get_mlflow_tracking_uri())
+
+experiment_name = "keras-with-mlflow"
+mlflow.set_experiment(experiment_name)
