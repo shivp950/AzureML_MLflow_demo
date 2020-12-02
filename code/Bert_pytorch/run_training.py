@@ -62,32 +62,12 @@ print("SDK version:", azureml.core.VERSION)
 print("MLflow version:", mlflow.version.VERSION)
 
 # Set mlflow tracking 
-mlflow.set_tracking_uri(ws.get_mlflow_tracking_uri())
+# mlflow.set_tracking_uri(ws.get_mlflow_tracking_uri())
+
+os.environ["MLFLOW_TRACKING_URI"] = ws.from_config().get_mlflow_tracking_uri()
 
 # Attach Experiment
 print("Loading Experiment")
 exp = Experiment(workspace=ws, name=experiment_settings["name"])
 mlflow.set_experiment(exp.name)
 print(exp.name, exp.workspace.name, sep="\n")
-
-# Load compute target
-print("Loading Compute Target")
-compute_target = ComputeTarget(workspace=ws, name=compute_target_name)
-
-# Set backend config for MLflow projects runs 
-backend_config = {"COMPUTE": compute_target_name, "USE_CONDA": False}
-
-# Submit project run 
-
-remote_mlflow_run = mlflow.projects.run(uri=".", 
-                                    parameters={"alpha":0.3},
-                                    backend = "azureml",
-                                    backend_config = backend_config,
-                                    synchronous=True)
-
-# Register model 
-model.register(model_name=deployment_settings["model"]["name"],
-                               model_path=deployment_settings["model"]["path"],
-                               tags=tags,
-                               properties=deploy_settings["model"]["properties"],
-                               description=deployment_settings["model"]["description"])
