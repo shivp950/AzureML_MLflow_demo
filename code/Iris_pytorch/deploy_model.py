@@ -40,8 +40,7 @@ print(ws.name, ws.resource_group, ws.location, ws.subscription_id, sep = '\n')
 # Deploying model on ACI
 print("Deploying model on ACI")
 aci_config = AciWebservice.deploy_configuration(cpu_cores=2,
-                                                memory_gb=5,
-                                                tags=deployment_settings["tags"])
+                                                memory_gb=5)
     # Deploying dev web service from image
 dev_service = mlflow.azureml.deploy(model_uri='runs:/{}/{}'.format(run_details["run_id"], deployment_settings["model"]["path"]),
                                             workspace=ws,
