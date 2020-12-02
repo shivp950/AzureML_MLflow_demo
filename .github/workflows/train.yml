@@ -47,7 +47,7 @@ jobs:
       run: |
         python 'code/Bert_pytorch/set_computecluster.py'
     
-    - name: Create or Load Azure Machine Learning Compute
+    - name: Configure MLflow with AzureML
       run: |
         python 'code/Bert_pytorch/run_training.py'
     
