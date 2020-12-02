@@ -30,7 +30,7 @@ from azureml.core.authentication import AzureCliAuthentication
 
 # Load the JSON settings file and relevant section
 print("Loading settings")
-with open(os.path.join("aml_service", "settings.json")) as f:
+with open(os.path.join("code", "settings.json")) as f:
     settings = json.load(f)
 deployment_settings = settings["deployment"]
 
