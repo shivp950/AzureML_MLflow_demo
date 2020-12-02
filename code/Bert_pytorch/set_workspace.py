@@ -52,47 +52,48 @@ print(f"::add-mask::{args.subscription_id}")
 # Use Azure CLI authentication
 cli_auth = AzureCliAuthentication()
 
-try:
-    print("Loading existing Workspace")
-    ws = Workspace.get(
-        name=args.workspace_name,
-        subscription_id=args.subscription_id,
-        resource_group=args.resource_group,
-        auth=cli_auth
+print("Loading existing Workspace")
+ws = Workspace.get(
+    name=args.workspace_name,
+    subscription_id=args.subscription_id,
+    resource_group=args.resource_group,
+    auth=cli_auth
     )
-    print("Found existing Workspace")
+print("Found existing Workspace")
 
-# set tracking URI for MLflow
+# mlflow.set_tracking_uri(ws.get_mlflow_tracking_uri())
+
 os.environ["MLFLOW_TRACKING_URI"] = ws.get_mlflow_tracking_uri()
+# set tracking URI for MLflow
 #experiment_name = "mlflow-bert-demo"
 #mlflow.set_experiment(experiment_name)
 
 
-except WorkspaceException:
-    print("Loading failed")
-    print("Creating new Workspace")
-    ws = Workspace.create(
-        name=args.workspace_name,
-        auth=cli_auth,
-        subscription_id=args.subscription_id,
-        resource_group=args.resource_group,
-        location=args.location,
-        create_resource_group=True,
-        show_output=True
-    )
+# except WorkspaceException:
+#     print("Loading failed")
+#     print("Creating new Workspace")
+#     ws = Workspace.create(
+#         name=args.workspace_name,
+#         auth=cli_auth,
+#         subscription_id=args.subscription_id,
+#         resource_group=args.resource_group,
+#         location=args.location,
+#         create_resource_group=True,
+#         show_output=True
+#     )
 
-# Write out the Workspace ARM properties to a config file
-config_file_path = os.environ.get("GITHUB_WORKSPACE", default="code")
-config_file_name = "aml_arm_config.json"
-ws.write_config(
-    path=config_file_path,
-    file_name=config_file_name
-)
+# # Write out the Workspace ARM properties to a config file
+# config_file_path = os.environ.get("GITHUB_WORKSPACE", default="code")
+# config_file_name = "aml_arm_config.json"
+# ws.write_config(
+#     path=config_file_path,
+#     file_name=config_file_name
+# )
 
 
-# Print Workspace details --> only print, if repository is private
-print("Workspace name: " + ws.name,
-      "Azure region: " + ws.location,
-      "Resource group: " + ws.resource_group, sep = '\n')
-print("Successfully loaded Workspace")
+# # Print Workspace details --> only print, if repository is private
+# print("Workspace name: " + ws.name,
+#       "Azure region: " + ws.location,
+#       "Resource group: " + ws.resource_group, sep = '\n')
+# print("Successfully loaded Workspace")
 
