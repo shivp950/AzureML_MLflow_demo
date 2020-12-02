@@ -63,8 +63,7 @@ try:
     print("Found existing Workspace")
 
 # set tracking URI for MLflow
-mlflow.set_tracking_uri(ws.get_mlflow_tracking_uri())
-
+os.environ["MLFLOW_TRACKING_URI"] = ws.get_mlflow_tracking_uri()
 #experiment_name = "mlflow-bert-demo"
 #mlflow.set_experiment(experiment_name)
 
@@ -89,7 +88,6 @@ ws.write_config(
     path=config_file_path,
     file_name=config_file_name
 )
-
 
 
 # Print Workspace details --> only print, if repository is private
