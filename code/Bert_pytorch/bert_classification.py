@@ -22,10 +22,21 @@ from torch.utils.data import Dataset, DataLoader
 from transformers import BertModel, BertTokenizer, AdamW
 from torchtext.utils import download_from_url, extract_archive
 from torchtext.datasets.text_classification import URLS
-# import azureml
-# from azureml.core import workspace
+import azureml
+from azureml.core import Workspace
+from azureml.core.authentication import AzureCliAuthentication
 
-# os.environ["MLFLOW_TRACKING_URI"] = ws.from_config().get_mlflow_tracking_uri()
+# Get workspace
+print("Loading Workspace")
+cli_auth = AzureCliAuthentication()
+config_file_path = os.environ.get("GITHUB_WORKSPACE", default="code")
+config_file_name = "aml_arm_config.json"
+ws = Workspace.from_config(
+    path=config_file_path,
+    auth=cli_auth,
+    _file_name=config_file_name)
+# Set tracking URI for MLflow
+os.environ["MLFLOW_TRACKING_URI"] = ws.get_mlflow_tracking_uri()
 
 class AGNewsDataset(Dataset):
     def __init__(self, reviews, targets, tokenizer, max_length):
