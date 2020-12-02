@@ -1,4 +1,4 @@
 {
-    "COMPUTE": "aml-cluster",
+    "COMPUTE": "gpu-cluster",
     "USE_CONDA": "True"
 }

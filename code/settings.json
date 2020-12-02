@@ -37,7 +37,7 @@
         "compute_target_to_use_for_training": "amlcompute",
         "training": {
             "amlcompute":{
-                "name": "aml-cluster",
+                "name": "gpu-cluster",
                 "vm_size": "STANDARD_D2_V2",
                 "vm_priority": "dedicated",
                 "min_nodes": 0,
