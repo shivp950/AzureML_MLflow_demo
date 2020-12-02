@@ -8,6 +8,8 @@ on:
     - '**.py'
     - 'requirements.txt'
     - '!get_logs.py'
+    - '**.json'
+    - '**.yml'
 
 jobs:
   build-and-deploy:
@@ -48,6 +50,6 @@ jobs:
     - name: Train Model
       shell: bash
       run: |
-        mlflow run "https://github.com/shivp950/AzureML_MLflow_demo/code/Bert_pytorch" -P epochs=5 -b "azureml" -c "backend_config.json" --experiment-name "mlflow-Bert-example"
+        mlflow run "code/Bert_pytorch" -P epochs=5 -b "azureml" -c "backend_config.json" --experiment-name "mlflow-Bert-example"
         
     
