@@ -90,6 +90,4 @@ model = model.Register(model_name=deployment_settings["model"]["name"],
                                model_path=deployment_settings["model"]["path"],
                                tags=tags,
                                properties=deployment_settings["model"]["properties"],
-                               description=deployment_settings["model"]["description"],
-                               datasets=deployment_settings["model"]["datasets"])
-)
+                               description=deployment_settings["model"]["description"])

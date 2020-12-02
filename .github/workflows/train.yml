@@ -34,7 +34,7 @@ jobs:
 
     - name: 'Get or Create Workspace'
       run: |
-        python 'code/Bert_pytorch/set_workspace.py' --subscription-id ${{ secrets.SUBSCRIPTION_ID }} --workspace-name ${{ secrets.WORKSPACE_NAME }} --resource-group ${{ secrets.RESOURCE_GROUP }} --location ${{ secrets.LOCATION }} --friendly-name ${{ secrets.FRIENDLY_NAME }}
+        python 'code/Bert_pytorch/set_workspace.py' --subscription-id ${{ secrets.SUBSCRIPTION_ID }} --workspace-name ${{ secrets.WORKSPACE_NAME }} --resource-group ${{ secrets.RESOURCE_GROUP }} --location ${{ secrets.LOCATION }} 
     
     - name: Create or Load Azure Machine Learning Compute
       run: |
