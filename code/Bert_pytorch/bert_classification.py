@@ -22,10 +22,10 @@ from torch.utils.data import Dataset, DataLoader
 from transformers import BertModel, BertTokenizer, AdamW
 from torchtext.utils import download_from_url, extract_archive
 from torchtext.datasets.text_classification import URLS
-import azureml
-from azureml.core import workspace
+# import azureml
+# from azureml.core import workspace
 
-os.environ["MLFLOW_TRACKING_URI"] = ws.from_config().get_mlflow_tracking_uri()
+# os.environ["MLFLOW_TRACKING_URI"] = ws.from_config().get_mlflow_tracking_uri()
 
 class AGNewsDataset(Dataset):
     def __init__(self, reviews, targets, tokenizer, max_length):
