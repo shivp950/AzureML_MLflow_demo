@@ -67,8 +67,6 @@ os.environ["MLFLOW_TRACKING_URI"] = ws.get_mlflow_tracking_uri()
 # set tracking URI for MLflow
 #experiment_name = "mlflow-bert-demo"
 #mlflow.set_experiment(experiment_name)
-
-
 # except WorkspaceException:
 #     print("Loading failed")
 #     print("Creating new Workspace")
@@ -81,16 +79,13 @@ os.environ["MLFLOW_TRACKING_URI"] = ws.get_mlflow_tracking_uri()
 #         create_resource_group=True,
 #         show_output=True
 #     )
-
-# # Write out the Workspace ARM properties to a config file
-# config_file_path = os.environ.get("GITHUB_WORKSPACE", default="code")
-# config_file_name = "aml_arm_config.json"
-# ws.write_config(
-#     path=config_file_path,
-#     file_name=config_file_name
-# )
-
-
+# Write out the Workspace ARM properties to a config file
+config_file_path = os.environ.get("GITHUB_WORKSPACE", default="code")
+config_file_name = "aml_arm_config.json"
+ws.write_config(
+     path=config_file_path,
+     file_name=config_file_name
+    )
 # # Print Workspace details --> only print, if repository is private
 # print("Workspace name: " + ws.name,
 #       "Azure region: " + ws.location,
