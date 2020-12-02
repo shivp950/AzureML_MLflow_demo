@@ -24,12 +24,7 @@
                 "password": null
             }
         },
-
-        "resume_state": {
-            "resume_from_state": false,
-            "data_reference_name": null,
-            "datapath_compute_binding": null
-        },
+        
         "history": {
             "output_collection": true,
             "snapshotProject": true,
