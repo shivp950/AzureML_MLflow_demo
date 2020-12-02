@@ -54,9 +54,9 @@ jobs:
     - name: Register model 
       run: |
         python 'code/Iris_pytorch/register_model.py'
-    
-    - name: Train Model
-      shell: bash
-      run: |
-        mlflow run https://github.com/shivp950/AzureML_MLflow_demo#code/Iris_pytorch -P epochs=5 --backend azureml --backend-config code/Iris_pytorch/backend_config.json --experiment-name "mlflow-iris-example"
+          
+    # - name: Train Model
+    #   shell: bash
+    #   run: |
+    #     mlflow run https://github.com/shivp950/AzureML_MLflow_demo#code/Iris_pytorch -P epochs=5 --backend azureml --backend-config code/Iris_pytorch/backend_config.json --experiment-name "mlflow-iris-example"
         
