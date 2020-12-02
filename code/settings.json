@@ -92,7 +92,7 @@
     "deployment": {
         "model": {
             "name": "mlflow-pytorch",
-            "path": "outputs/model",
+            "path": "model",
             "evaluation_parameters": {
                 "larger_is_better": [],
                 "smaller_is_better": []
