@@ -1,5 +1,13 @@
 name: deploy model
-on: [push, pull_request]
+
+on:
+  push:
+    branches:
+      master
+    paths:
+    - '**.py'
+    - 'requirements.txt'
+    - '!get_logs.py'
 # on:
 #   repository_dispatch:
 #     types:
@@ -23,10 +31,15 @@ jobs:
         python-version: 3.7
     
     - name: Install MLflow
-      shell: Bash
+      shell: bash
       run: |
         pip install azureml-mlflow
 
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r 'code/Iris_pytorch/requirements.txt'
+    
     - name: deploy model to ACI
       run: |
        python 'code/Iris_pytorch/deploy_model.py'
