@@ -64,7 +64,7 @@ print(exp.name, exp.workspace.name, sep="\n")
 remote_mlflow_run = mlflow.projects.run(uri="https://github.com/shivp950/AzureML_MLflow_demo#code/Iris_pytorch", 
                                     parameters={"epochs":5},
                                     backend = "azureml",
-                                    backend_config = {"COMPUTE": "gpu-cluster", "USE_CONDA": True},
+                                    backend_config = {"COMPUTE": "gpu-cluster-1", "USE_CONDA": True},
                                     synchronous=True)
 
 # Save run details
