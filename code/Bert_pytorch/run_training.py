@@ -89,5 +89,5 @@ remote_mlflow_run = mlflow.projects.run(uri=".",
 model.register(model_name=deployment_settings["model"]["name"],
                                model_path=deployment_settings["model"]["path"],
                                tags=tags,
-                               properties=deployment_settings["model"]["properties"],
+                               properties=settings["model"]["properties"],
                                description=deployment_settings["model"]["description"])
