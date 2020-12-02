@@ -92,7 +92,6 @@ mlflow.set_tracking_uri(ws.get_mlflow_tracking_uri())
 # Print Workspace details --> only print, if repository is private
 print("Workspace name: " + ws.name,
       "Azure region: " + ws.location,
-      "Subscription id: " + ws.subscription_id,
       "Resource group: " + ws.resource_group, sep = '\n')
 print("Successfully loaded Workspace")
 
