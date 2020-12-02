@@ -50,6 +50,6 @@ jobs:
     - name: Train Model
       shell: bash
       run: |
-        mlflow run "code/Bert_pytorch" -P epochs=5 -b "azureml" -c "backend_config.json" --experiment-name "mlflow-Bert-example"
+        mlflow run "code/Bert_pytorch" -P epochs=5 -b "azureml" -c "code/Bert_pytorch/backend_config.json" --experiment-name "mlflow-Bert-example"
         
     
