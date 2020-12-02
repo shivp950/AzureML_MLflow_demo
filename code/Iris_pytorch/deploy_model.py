@@ -47,16 +47,4 @@ dev_service = mlflow.azureml.deploy(model_uri='runs:/{}/{}'.format(run_details["
                                             deployment_config=aci_config,
                                             service_name="ACI-deploy",
                                             model_name=deployment_settings["model"]["name"])
-# Show output of the deployment on stdout
-dev_service.wait_for_deployment(show_output=True)
-print("State of Service: {}".format(dev_service.state))
-
-# Checking status of web service
-print("Checking status of ACI Dev Deployment")
-if dev_service.state != "Healthy":
-    raise Exception(
-        "Dev Deployment on ACI failed with the following status: {} and logs: \n{}".format(
-            dev_service.state, dev_service.get_logs()
-        )
-    )
-m
+        
