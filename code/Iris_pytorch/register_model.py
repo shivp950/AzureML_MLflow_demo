@@ -36,7 +36,7 @@ deployment_settings = settings["deployment"]
 
 # Get details from Run
 print("Loading Run Details")
-with open(os.path.join("aml_service", "run_details.json")) as f:
+with open(os.path.join("code", "run_details.json")) as f:
     run_details = json.load(f)
 
 # Get workspace
