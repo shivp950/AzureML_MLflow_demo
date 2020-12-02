@@ -30,14 +30,14 @@ from azureml.core.authentication import AzureCliAuthentication
 
 # Load the JSON settings file
 print("Loading settings")
-with open(os.path.join("aml_service", "settings.json")) as f:
+with open(os.path.join("code", "settings.json")) as f:
     settings = json.load(f)
 aml_settings = settings["compute_target"]["training"]["amlcompute"]
 
 # Get workspace
 print("Loading Workspace")
 cli_auth = AzureCliAuthentication()
-config_file_path = os.environ.get("GITHUB_WORKSPACE", default="aml_service")
+config_file_path = os.environ.get("GITHUB_WORKSPACE", default="code")
 config_file_name = "aml_arm_config.json"
 ws = Workspace.from_config(
     path=config_file_path,

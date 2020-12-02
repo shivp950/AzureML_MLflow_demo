@@ -75,7 +75,7 @@ except WorkspaceException:
     )
 
 # Write out the Workspace ARM properties to a config file
-config_file_path = os.environ.get("GITHUB_WORKSPACE", default="aml_service")
+config_file_path = os.environ.get("GITHUB_WORKSPACE", default="code")
 config_file_name = "aml_arm_config.json"
 ws.write_config(
     path=config_file_path,
