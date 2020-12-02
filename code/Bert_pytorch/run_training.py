@@ -23,29 +23,18 @@ IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 ARISING IN ANY WAY OUT OF THE USE OF THE SOFTWARE CODE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 """
-
 import os, json, azureml.core
 from azureml.core import Workspace, Experiment, ContainerRegistry, Environment
-from azureml.core.compute import ComputeTarget
-from azureml.core.runconfig import MpiConfiguration, TensorflowConfiguration
 from azureml.core.authentication import AzureCliAuthentication
-from azureml.train.dnn import Chainer, PyTorch, TensorFlow, Gloo, Nccl
-from azureml.train.sklearn import SKLearn
-from azureml.train.estimator import Estimator
-from azureml.train.hyperdrive import HyperDriveConfig, PrimaryMetricGoal
-from helper import utils
 import sys, os
 import mlflow
 import mlflow.azureml
-
 
 # Load the JSON settings file and relevant section
 print("Loading settings")
 with open(os.path.join("aml_service", "settings.json")) as f:
     settings = json.load(f)
 experiment_settings = settings["experiment"]
-compute_target_to_use = settings["compute_target"]["compute_target_to_use_for_training"].strip().lower()
-compute_target_name = settings["compute_target"]["training"][compute_target_to_use]["name"]
 
 # Get workspace
 print("Loading Workspace")
@@ -57,9 +46,6 @@ ws = Workspace.from_config(
     auth=cli_auth,
     _file_name=config_file_name)
 print(ws.name, ws.resource_group, ws.location, sep = '\n')
-
-print("SDK version:", azureml.core.VERSION)
-print("MLflow version:", mlflow.version.VERSION)
 
 # Set mlflow tracking 
 # mlflow.set_tracking_uri(ws.get_mlflow_tracking_uri())

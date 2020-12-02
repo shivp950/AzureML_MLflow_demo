@@ -1,6 +1,6 @@
 {
     "experiment":{
-        "name": "mlflow-GHA-demo",
+        "name": "mlflow-Bert-demo",
         "source_directory": "./code/Bert_pytorch",
         "entry_script": "train.py",
         "script_parameters": {},
