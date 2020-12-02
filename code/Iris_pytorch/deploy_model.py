@@ -6,9 +6,11 @@ from azureml.core import Workspace, Image
 from azureml.core.webservice import Webservice, AciWebservice
 from azureml.exceptions import WebserviceException 
 from azureml.core.authentication import AzureCliAuthentication
+import mlflow
+import mlflow.azureml
 
-sys.path.insert(0, os.path.join("code", "testing"))
-import test_functions
+# sys.path.insert(0, os.path.join("code", "testing"))
+# import test_functions
 
 # Load the JSON settings file and relevant sections
 print("Loading settings")
@@ -26,7 +28,7 @@ with open(os.path.join("code", "run_details.json")) as f:
 # Get workspace
 print("Loading Workspace")
 cli_auth = AzureCliAuthentication()
-config_file_path = os.environ.get("GITHUB_WORKSPACE", default="aml_service")
+config_file_path = os.environ.get("GITHUB_WORKSPACE", default="code")
 config_file_name = "aml_arm_config.json"
 ws = Workspace.from_config(
     path=config_file_path,
@@ -45,7 +47,7 @@ dev_service = mlflow.azureml.deploy(model_uri='runs:/{}/{}'.format(run_details["
                                             workspace=ws,
                                             deployment_config=aci_config,
                                             service_name="ACI-deploy",
-                                            model_name=deployment_settings["model"]["name"]"])
+                                            model_name=deployment_settings["model"]["name"])
 # Show output of the deployment on stdout
 dev_service.wait_for_deployment(show_output=True)
 print("State of Service: {}".format(dev_service.state))
