@@ -61,8 +61,8 @@ mlflow.set_experiment(exp.name)
 print(exp.name, exp.workspace.name, sep="\n")
 
 # Submit Project
-remote_mlflow_run = mlflow.projects.run(uri="https://github.com/shivp950/AzureML_MLflow_demo#code/Bert_pytorch", 
-                                    parameters={"max_epochs":5},
+remote_mlflow_run = mlflow.projects.run(uri="https://github.com/shivp950/AzureML_MLflow_demo#code/Iris_pytorch", 
+                                    parameters={"epochs":5},
                                     backend = "azureml",
                                     backend_config = {"COMPUTE": "gpu-cluster", "USE_CONDA": True},
                                     synchronous=True)
@@ -73,4 +73,3 @@ run_details["run_id"] = remote_mlflow_run.run_id
 run_details["experiment_name"] = exp.name
 with open(os.path.join("code", "run_details.json"), "w") as outfile:
     json.dump(run_details, outfile)
-

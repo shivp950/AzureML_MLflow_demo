@@ -1,7 +1,7 @@
 {
     "experiment":{
-        "name": "mlflow-Bert-demo",
-        "source_directory": "./code/Bert_pytorch",
+        "name": "mlflow-iris-demo",
+        "source_directory": "./code/Iris_pytorch",
         "entry_script": "train.py",
         "script_parameters": {},
         "user_managed": false,

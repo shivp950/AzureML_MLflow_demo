@@ -37,26 +37,26 @@ jobs:
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r 'code/Bert_pytorch/requirements.txt'
+        pip install -r 'code/Iris_pytorch/requirements.txt'
 
     - name: 'Get or Create Workspace'
       run: |
-        python 'code/Bert_pytorch/set_workspace.py' --subscription-id ${{ secrets.SUBSCRIPTION_ID }} --workspace-name ${{ secrets.WORKSPACE_NAME }} --resource-group ${{ secrets.RESOURCE_GROUP }} --location ${{ secrets.LOCATION }} 
+        python 'code/Iris_pytorch/set_workspace.py' --subscription-id ${{ secrets.SUBSCRIPTION_ID }} --workspace-name ${{ secrets.WORKSPACE_NAME }} --resource-group ${{ secrets.RESOURCE_GROUP }} --location ${{ secrets.LOCATION }} 
     
     - name: Create or Load Azure Machine Learning Compute
       run: |
-        python 'code/Bert_pytorch/set_computecluster.py'
+        python 'code/Iris_pytorch/set_computecluster.py'
     
     - name: Configure MLflow with AzureML
       run: |
-        python 'code/Bert_pytorch/run_training.py'
+        python 'code/Iris_pytorch/run_training.py'
     
     - name: Register model 
       run: |
-        python 'code/Bert_pytorch/register_model.py'
+        python 'code/Iris_pytorch/register_model.py'
     
     - name: Train Model
       shell: bash
       run: |
-        mlflow run https://github.com/shivp950/AzureML_MLflow_demo#code/Bert_pytorch -P epochs=5 --backend azureml --backend-config code/Bert_pytorch/backend_config.json --experiment-name "mlflow-Bert-example"
+        mlflow run https://github.com/shivp950/AzureML_MLflow_demo#code/Iris_pytorch -P epochs=5 --backend azureml --backend-config code/Iris_pytorch/backend_config.json --experiment-name "mlflow-iris-example"
         
