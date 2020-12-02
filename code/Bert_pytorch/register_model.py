@@ -23,55 +23,43 @@ IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 ARISING IN ANY WAY OUT OF THE USE OF THE SOFTWARE CODE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 """
-import os, json, azureml.core
-from azureml.core import Workspace, Experiment, ContainerRegistry, Environment, Model
+import os, json, sys, azureml.core
+from azureml.core import Workspace, Experiment, Run
+from azureml.core.model import Model
 from azureml.core.authentication import AzureCliAuthentication
-import sys, os
-import mlflow
-import mlflow.azureml
 
 # Load the JSON settings file and relevant section
 print("Loading settings")
-with open(os.path.join("code", "settings.json")) as f:
+with open(os.path.join("aml_service", "settings.json")) as f:
     settings = json.load(f)
-experiment_settings = settings["experiment"]
 deployment_settings = settings["deployment"]
 
+# Get details from Run
+print("Loading Run Details")
+with open(os.path.join("aml_service", "run_details.json")) as f:
+    run_details = json.load(f)
 
 # Get workspace
 print("Loading Workspace")
 cli_auth = AzureCliAuthentication()
-config_file_path = os.environ.get("GITHUB_WORKSPACE", default="code")
+config_file_path = os.environ.get("GITHUB_WORKSPACE", default="aml_service")
 config_file_name = "aml_arm_config.json"
 ws = Workspace.from_config(
     path=config_file_path,
     auth=cli_auth,
     _file_name=config_file_name)
-print(ws.name, ws.resource_group, ws.location, sep = '\n')
+print(ws.name, ws.resource_group, ws.location, ws.subscription_id, sep = '\n')
 
-# Set mlflow tracking 
-# mlflow.set_tracking_uri(ws.get_mlflow_tracking_uri())
+# Loading Run
+print("Loading Run")
+experiment = Experiment(workspace=ws, name=run_details["experiment_name"])
+run = Run(experiment=experiment, run_id=run_details["run_id"])
 
-os.environ["MLFLOW_TRACKING_URI"] = ws.get_mlflow_tracking_uri()
+# Register model
+tags = deployment_settings["model"]["tags"]
 
-# Attach Experiment
-print("Loading Experiment")
-exp = Experiment(workspace=ws, name=experiment_settings["name"])
-mlflow.set_experiment(exp.name)
-print(exp.name, exp.workspace.name, sep="\n")
-
-# Submit Project
-remote_mlflow_run = mlflow.projects.run(uri=".", 
-                                    parameters={"alpha":0.3},
-                                    backend = "azureml",
-                                    backend_config = {"COMPUTE": "gpu-cluster", "USE_CONDA": False},
-                                    synchronous=True)
-
-
-
-run_details = {}
-run_details["run_id"] = remote_mlflow_run.run_id
-run_details["experiment_name"] = exp.name
-with open(os.path.join("code", "run_details.json"), "w") as outfile:
-    json.dump(run_details, outfile)
-
+model = run.register_model(model_name=deployment_settings["model"]["name"],
+                               model_path=deployment_settings["model"]["path"],
+                               tags=tags,
+                               description=deployment_settings["model"]["description"],
+                               )
