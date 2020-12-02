@@ -61,6 +61,14 @@ try:
         auth=cli_auth
     )
     print("Found existing Workspace")
+
+# set tracking URI for MLflow
+mlflow.set_tracking_uri(ws.get_mlflow_tracking_uri())
+
+#experiment_name = "mlflow-bert-demo"
+#mlflow.set_experiment(experiment_name)
+
+
 except WorkspaceException:
     print("Loading failed")
     print("Creating new Workspace")
@@ -82,11 +90,6 @@ ws.write_config(
     file_name=config_file_name
 )
 
-# set tracking URI for MLflow
-mlflow.set_tracking_uri(ws.get_mlflow_tracking_uri())
-
-# experiment_name = "test"
-# mlflow.set_experiment(experiment_name)
 
 
 # Print Workspace details --> only print, if repository is private
